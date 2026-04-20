@@ -21,12 +21,19 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Ejecutar pruebas y generar reporte HTML
-      run: mvn clean test surefire-report:report
+    - name: Ejecutar Pruebas (Unit, BDD, Performance)
+      run: mvn clean verify surefire-report:report
 
-    - name: Publicar Reporte Navegable (Artefacto)
-      if: always() # Asegura que el reporte se suba incluso si fallan los tests
+    - name: Publicar Reporte Unitario/BDD (Artefacto)
+      if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: reporte-pruebas-html
+        name: reporte-pruebas-qa
         path: target/site/surefire-report.html
+
+    - name: Publicar Dashboard de Performance (JMeter)
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: dashboard-performance-jmeter
+        path: target/jmeter/reports/load-test-calculadora/

@@ -60,5 +60,11 @@ Se han definido umbrales de aceptación para el performance:
 - **Latencia promedio**: < 500ms.
 El pipeline marcará la falla de la construcción (build) si estos criterios no se cumplen.
 
+## 7. Internacionalización (Español)
+Para cumplir con los requerimientos corporativos, el sistema ha sido configurado íntegramente en **Español**:
+- **Gherkin**: Archivos `.feature` escritos con la etiqueta `# language: es`.
+- **JMeter Dashboard**: Forzado mediante la propiedad `language=es` en el `pom.xml`.
+- **Reportes Surefire**: Localizados según la configuración del entorno Java.
+
 ---
 *Desarrollado para la Evaluación de Automatización de Pruebas - Iplacex.*

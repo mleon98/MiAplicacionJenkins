@@ -7,6 +7,7 @@ Este proyecto representa una solución integral de QA Automation que integra con
 *   **Fase 2: BDD y Colaboración**: Implementar sesiones 'Three Amigos' y escenarios Gherkin (Calculadora y Autenticación).
 *   **Fase 3: Performance**: Validar rendimiento bajo carga con JMeter y definir SLAs.
 *   **Visibilidad**: Generar reportes navegables y dashboards de métricas.
+*   **Guía Detallada**: Ver el [Paso a Paso del Proyecto](docs/GUIA_PASO_A_PASO.md) para el detalle técnico de la implementación.
 
 ## 2. Simulación 'Three Amigos' (Actividad 2)
 Se realizó una sesión de descubrimiento para la funcionalidad de **Carrito de Compras**. 

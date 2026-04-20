@@ -2,69 +2,58 @@
 
 Este proyecto representa una solución integral de QA Automation que integra control de versiones, gestión de dependencias, pruebas unitarias atómicas, BDD (Behavior Driven Development), pruebas de performance y un pipeline de Integración Continua (CI).
 
-## 1. Objetivos del Proyecto
-*   **Fase 1**: Establecer la arquitectura base con Maven y JUnit 5, garantizando la idempotencia y atomicidad de las pruebas unitarias.
-*   **Fase 2**: Implementar el enfoque BDD con Cucumber y Gherkin para mejorar la comunicación entre los stakeholders técnicos y de negocio.
-*   **Fase 3**: Validar el rendimiento del sistema bajo carga utilizando JMeter y definir métricas de calidad (SLAs).
-*   **Pipeline CI**: Automatizar todo el ciclo de vida (compilación, testeo y reportabilidad) mediante GitHub Actions.
+## 1. Objetivos del Proyecto (Actividad 1 y 2)
+*   **Fase 1: Arquitectura**: Establecer la arquitectura base con Maven y JUnit 5.
+*   **Fase 2: BDD y Colaboración**: Implementar sesiones 'Three Amigos' y escenarios Gherkin (Calculadora y Autenticación).
+*   **Fase 3: Performance**: Validar rendimiento bajo carga con JMeter y definir SLAs.
+*   **Visibilidad**: Generar reportes navegables y dashboards de métricas.
 
-## 2. Comandos Principales
-Para ejecutar el ciclo de vida completo (incluyendo unitarias, BDD y performance), utiliza el siguiente comando desde la carpeta raíz del proyecto:
+## 2. Simulación 'Three Amigos' (Actividad 2)
+Se realizó una sesión de descubrimiento para la funcionalidad de **Login**. 
+*   **Documentación**: Ver el detalle en [three-amigos-login.md](docs/three-amigos-login.md).
+*   **Roles**: Product Owner, Desarrollador y QA colaboraron para definir los ejemplos y criterios de aceptación.
 
+## 3. Pruebas BDD (Gherkin)
+Se implementaron escenarios complejos, incluyendo el uso de **Scenario Outlines** para la validación de múltiples juegos de datos.
+*   **Archivos**: 
+    *   `src/test/resources/features/login.feature` (Autenticación)
+    *   `src/test/resources/features/calculadora.feature` (Cálculos)
+
+## 4. Ejecución y Reportabilidad
+El proyecto genera reportes automáticos en cada ejecución:
+*   **Unitarias/BDD**: Reporte HTML via `maven-surefire-report-plugin`.
+*   **Performance**: Dashboard interactivo detallado (JMeter).
+*   **CI/CD**: Los reportes se publican como artefactos en GitHub Actions después de cada ejecución de `mvn verify`.
+
+## 5. Estrategia de Monitoreo y Alertas
+Para un entorno productivo, el sistema propone:
+*   **Métricas**: TPS, Latencia (P95) y Tasa de Error integrados en Dashboards (Grafana).
+*   **Alertas**: Notificaciones automáticas via Webhooks cuando se degradan los SLAs o falla el pipeline.
+*   **Detalle**: Ver estrategias en [dashboards-and-alerts.md](docs/dashboards-and-alerts.md).
+
+## 6. Comandos de Ejecución
 ```powershell
+# Ejecutar todo el conjunto de pruebas
 mvn clean verify
-```
 
-*Nota: Debido a la configuración local del entorno, se recomienda especificar explícitamente el JAVA_HOME si no está en el PATH:*
-```powershell
+# Alternativa con JAVA_HOME configurado (Entorno Local)
 $env:JAVA_HOME = "C:\Program Files\JetBrains\IntelliJ IDEA 2025.3.1\jbr"; & "C:\Program Files\JetBrains\IntelliJ IDEA 2025.3.1\plugins\maven\lib\maven3\bin\mvn.cmd" clean verify
 ```
 
-## 3. Estructura del Proyecto
-El proyecto sigue la estructura estándar de Maven, extendida para BDD y Performance:
-
+## 7. Estructura del repositorio
 ```text
 qa-automation-taller/
-├── .github/workflows/          # Definición del Pipeline de CI
-├── docs/                       # Documentación técnica y métricas (SLAs)
+├── .github/workflows/          # Pipeline CI
+├── docs/                       # Sesión Three Amigos y Estrategia de Alertas
 ├── src/
-│   ├── main/java/              # Código fuente (Clase Calculadora)
+│   ├── main/java/com/mlsistemas/core/   # Lógica Business
 │   └── test/
-│       ├── java/
-│       │   ├── core/           # Pruebas unitarias JUnit 5
-│       │   ├── stepdefinitions/# Implementación de pasos Gherkin (Glue code)
-│       │   └── runners/        # Orquestador para Cucumber
-│       ├── jmeter/             # Escenarios de carga (.jmx)
-│       └── resources/features/ # Especificación en Gherkin (Español)
-├── pom.xml                     # Gestión de dependencias y plugins
-└── README.md                   # Documentación principal del sistema
+│       ├── java/com/mlsistemas/         # Tests Unitarios y Steps
+│       ├── jmeter/                      # Planes de Carga
+│       └── resources/features/          # Escenarios Gherkin
+├── pom.xml                     # Configuración Maven
+└── README.md                   # Documentación principal
 ```
-
-## 4. Archivos Clave y Funcionalidad
-*   **`pom.xml`**: Corazón del proyecto. Gestiona JUnit 5, Cucumber 7, el plugin de JMeter y la generación de reportes HTML.
-*   **`Calculadora.java`**: Lógica de negocio core (Suma y Resta).
-*   **`CalculadoraTest.java`**: Garantiza que los métodos core funcionen de forma independiente (Idempotencia).
-*   **`calculadora.feature`**: Especificación legible de casos de uso en español.
-*   **`load-test-calculadora.jmx`**: Escenario de JMeter para medir tiempos de respuesta y tasas de error bajo carga.
-
-## 5. Explicación del Pipeline (CI)
-Ubicado en `.github/workflows/ci.yml`, el pipeline se dispara automáticamente en cada `push` o `pull_request`.
-1.  **Entorno**: Corre sobre agentes `ubuntu-latest`.
-2.  **JDK 17**: Configura el entorno Java necesario.
-3.  **Ejecución**: Ejecuta `mvn clean test surefire-report:report`.
-4.  **Artefactos**: Publica el reporte de pruebas navegable (Surefire) como un artefacto descargable de GitHub, asegurando la trazabilidad de los fallos.
-
-## 6. Métricas y SLAs (Fase 3)
-Se han definido umbrales de aceptación para el performance:
-- **Tasa de Error**: < 1%.
-- **Latencia promedio**: < 500ms.
-El pipeline marcará la falla de la construcción (build) si estos criterios no se cumplen.
-
-## 7. Internacionalización (Español)
-Para cumplir con los requerimientos corporativos, el sistema ha sido configurado íntegramente en **Español**:
-- **Gherkin**: Archivos `.feature` escritos con la etiqueta `# language: es`.
-- **JMeter Dashboard**: Forzado mediante la propiedad `language=es` en el `pom.xml`.
-- **Reportes Surefire**: Localizados según la configuración del entorno Java.
 
 ---
 *Desarrollado para la Evaluación de Automatización de Pruebas - Iplacex.*

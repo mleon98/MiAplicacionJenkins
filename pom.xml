@@ -91,6 +91,7 @@
                     <generateReports>true</generateReports>
                     <propertiesJMeter>
                         <language>es</language>
+                        <jmeter.reportgenerator.locale>es_ES</jmeter.reportgenerator.locale>
                     </propertiesJMeter>
                 </configuration>
             </plugin>

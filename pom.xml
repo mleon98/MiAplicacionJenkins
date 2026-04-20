@@ -89,6 +89,9 @@
                 </executions>
                 <configuration>
                     <generateReports>true</generateReports>
+                    <testFilesIncluded>
+                        <jMeterTestFile>performance-test-ecommerce.jmx</jMeterTestFile>
+                    </testFilesIncluded>
                     <propertiesJMeter>
                         <language>es</language>
                         <jmeter.reportgenerator.locale>es_ES</jmeter.reportgenerator.locale>

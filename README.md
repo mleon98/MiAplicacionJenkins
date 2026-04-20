@@ -9,27 +9,26 @@ Este proyecto representa una solución integral de QA Automation que integra con
 *   **Visibilidad**: Generar reportes navegables y dashboards de métricas.
 
 ## 2. Simulación 'Three Amigos' (Actividad 2)
-Se realizó una sesión de descubrimiento para la funcionalidad de **Login**. 
-*   **Documentación**: Ver el detalle en [three-amigos-login.md](docs/three-amigos-login.md).
-*   **Roles**: Product Owner, Desarrollador y QA colaboraron para definir los ejemplos y criterios de aceptación.
+Se realizó una sesión de descubrimiento para la funcionalidad de **Carrito de Compras**. 
+*   **Documentación**: Ver el detalle en [MINUTA_THREE_AMIGOS.md](docs/MINUTA_THREE_AMIGOS.md).
+*   **Roles**: Product Owner (Esthela), Desarrollador (Carlos) y QA (Pedro) colaboraron para definir los criterios de aceptación.
 
 ## 3. Pruebas BDD (Gherkin)
-Se implementaron escenarios complejos, incluyendo el uso de **Scenario Outlines** para la validación de múltiples juegos de datos.
-*   **Archivos**: 
-    *   `src/test/resources/features/login.feature` (Autenticación)
-    *   `src/test/resources/features/calculadora.feature` (Cálculos)
+Se implementaron escenarios complejos utilizando Gherkin, incluyendo el uso de **Scenario Outlines** (Esquemas de escenario) para validaciones de stock y límites.
+*   **Nuevos Archivos**: 
+    *   `src/test/resources/features/carrito.feature`
+    *   `src/test/java/com/mlsistemas/stepdefinitions/CarritoSteps.java`
+*   **Existentes**: `login.feature`, `calculadora.feature`.
 
-## 4. Ejecución y Reportabilidad
-El proyecto genera reportes automáticos en cada ejecución:
-*   **Unitarias/BDD**: Reporte HTML via `maven-surefire-report-plugin`.
-*   **Performance**: Dashboard interactivo detallado (JMeter).
-*   **CI/CD**: Los reportes se publican como artefactos en GitHub Actions después de cada ejecución de `mvn verify`.
+## 4. Pruebas de Performance (JMeter)
+Se diseñó un plan de carga para el flujo de compra:
+*   **Escenario**: Simulation de Login y Agregar al Carrito.
+*   **Métricas Monitoreadas**: TPS (Transacciones por segundo), Latencia (Latencia variable simulada) y Tasa de Errores (2% de error simulado en stock).
+*   **Archivo**: `src/test/jmeter/performance-test-ecommerce.jmx`.
 
 ## 5. Estrategia de Monitoreo y Alertas
-Para un entorno productivo, el sistema propone:
-*   **Métricas**: TPS, Latencia (P95) y Tasa de Error integrados en Dashboards (Grafana).
-*   **Alertas**: Notificaciones automáticas via Webhooks cuando se degradan los SLAs o falla el pipeline.
-*   **Detalle**: Ver estrategias en [dashboards-and-alerts.md](docs/dashboards-and-alerts.md).
+Se documentó la integración de métricas en dashboards y la configuración de alertas automáticas:
+*   **Detalle**: Ver estrategias en [DASHBOARDS_Y_ALERTAS.md](docs/DASHBOARDS_Y_ALERTAS.md).
 
 ## 6. Comandos de Ejecución
 ```powershell

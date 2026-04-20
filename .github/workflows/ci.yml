@@ -34,7 +34,9 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: reporte-pruebas-qa
-        path: target/site/surefire-report.html
+        path: |
+          target/site/surefire-report.html
+          target/cucumber-report.html
 
     - name: Publicar Dashboard de Performance (JMeter)
       if: always()

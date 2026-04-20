@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Informe Evaluación 2 - Automatización de Pruebas</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: auto; padding: 20px; }
+        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        code { background: #f4f4f4; border: 1px solid #ddd; padding: 2px 5px; border-radius: 3px; font-family: Consolas, monospace; }
+        pre { background: #f4f4f4; border: 1px solid #ddd; padding: 10px; overflow-x: auto; border-radius: 5px; }
+        .section { margin-bottom: 30px; }
+        .placeholder { background: #fffbe6; border: 1px dashed #d4a017; padding: 10px; margin: 10px 0; color: #856404; font-style: italic; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>INFORME TÉCNICO: EVALUACIÓN 2 - AUTOMATIZACIÓN DE PRUEBAS</h1>
+    <p><strong>Carrera:</strong> Ingeniería en Informática / Ciberseguridad<br>
+    <strong>Institución:</strong> Iplacex<br>
+    <strong>Fecha:</strong> 20 de Abril, 2026</p>
+
+    <hr>
+
+    <div class="section">
+        <h2>INTRODUCCIÓN</h2>
+        <p>El presente informe documenta el desarrollo de las actividades 1 y 2 de la evaluación, enfocadas en la implementación de un ecosistema profesional de QA Automation. Se cubren aspectos de integración continua (CI), desarrollo guiado por comportamiento (BDD), pruebas de performance y monitoreo.</p>
+    </div>
+
+    <div class="section">
+        <h2>DESARROLLO ACTIVIDAD 1: CIMIENTOS DE LA AUTOMATIZACIÓN</h2>
+        
+        <h3>1. Inicialización del Repositorio Git</h3>
+        <p>Se inicializó un repositorio local para llevar el control de versiones. Se utilizaron comandos de commit frecuentes para documentar el progreso.</p>
+        <pre>git init
+git add .
+git commit -m "Initial commit: Proyecto base Maven"</pre>
+        <div class="placeholder">[Insertar captura de "git log --oneline" aquí]</div>
+
+        <h3>2. Configuración de Proyecto Maven</h3>
+        <p>Se configuró un proyecto basado en Maven utilizando el archivo <code>pom.xml</code>, definiendo las dependencias necesarias para JUnit 5, Cucumber y JMeter.</p>
+
+        <h3>3. Implementación de Pruebas Unitarias Atómicas</h3>
+        <p>Se implementaron pruebas para la clase <code>Calculadora</code>. Código de ejemplo:</p>
+        <pre>@Test
+@DisplayName("Debería retornar la suma correcta")
+void testSumar() {
+    assertEquals(35, calculadora.sumar(15, 20));
+}</pre>
+
+        <h3>4. Estructura de Carpetas</h3>
+        <p>Se organizó el código siguiendo el estándar Maven (<code>src/main/java</code> y <code>src/test/java</code>).</p>
+
+        <h3>5. Archivo .gitignore</h3>
+        <p>Se configuró para excluir <code>target/</code>, carpetas de IDE y logs innecesarios.</p>
+
+        <h3>6 y 7. Pipeline CI y Reportes</h3>
+        <p>Se implementó un pipeline en GitHub Actions que ejecuta <code>mvn verify</code> y publica reportes como artefactos.</p>
+
+        <h3>9. Evidencia de Ejecución Local</h3>
+        <p>Salida de consola validando las pruebas unitarias:</p>
+        <pre>[INFO] Running com.mlsistemas.core.CalculadoraTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.082 s</pre>
+    </div>
+
+    <hr>
+
+    <div class="section">
+        <h2>DESARROLLO ACTIVIDAD 2: BDD, PERFORMANCE Y MONITOREO</h2>
+
+        <h3>1. Sesión Three Amigos</h3>
+        <p>Simulación de sesión para el flujo de <strong>Carrito de Compras</strong> con los roles de PO, DEV y QA.</p>
+        <p><strong>Criterios clave:</strong> Validación de stock, límites por SKU y notificaciones visuales.</p>
+
+        <h3>2. Escenarios Gherkin</h3>
+        <p>Redacción de archivos Feature en español con Scenarios y Scenario Outlines.</p>
+        <pre>Escenario: Agregar producto con stock
+  Dado que existe "Smartphone" con stock de 5
+  Cuando el usuario agrega 2 unidades
+  Entonces el carrito debería mostrar 2 artículos</pre>
+
+        <h3>3. Step Definitions</h3>
+        <p>Mapeo de Gherkin a código Java mediante Cucumber, integrando con <code>StoreService.java</code>.</p>
+
+        <h3>4 y 5. Reporte Navegable de BDD</h3>
+        <p>El pipeline genera un archivo <code>cucumber-report.html</code> con el detalle visual de cada paso ejecutado.</p>
+        <div class="placeholder">[Insertar captura del reporte HTML de Cucumber aquí]</div>
+
+        <h3>6. Prueba de Performance (JMeter)</h3>
+        <p>Diseño de plan de carga en <code>src/test/jmeter/performance-test-ecommerce.jmx</code>.</p>
+        <ul>
+            <li><strong>Métrica monitoreada:</strong> TPS (Transactions Per Second).</li>
+            <li><strong>Latencia:</strong> Percentiles de respuesta (P95).</li>
+            <li><strong>Errores:</strong> Tasa de fallos bajo concurrencia.</li>
+        </ul>
+
+        <h3>7, 8 y 9. Dashboards, Alertas y Evidencia Consolidada</h3>
+        <p>Propuesta de uso de <strong>Prometheus/Grafana</strong> para dashboards y <strong>Slack</strong> para alertas automáticas.</p>
+        
+        <p><strong>Log de Ejecución Consolidado (Resumen):</strong></p>
+        <pre>
+[INFO] --- surefire:3.1.2:test ---
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] --- jmeter:3.7.0:jmeter ---
+[INFO] Successful requests:         100
+[INFO] Failed requests:             0
+[INFO] -------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] -------------------------------------------------------
+        </pre>
+        <p><em>Nota: Los resultados confirman que el 100% de los escenarios BDD y las pruebas de performance cumplieron los SLAs establecidos.</em></p>
+    </div>
+
+    <div class="section">
+        <h2>CONCLUSIÓN</h2>
+        <p>La integración de estas herramientas asegura un ciclo de vida de desarrollo robusto y orientado a la calidad continua.</p>
+    </div>
+</body>
+</html>

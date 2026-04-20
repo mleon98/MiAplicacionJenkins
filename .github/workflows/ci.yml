@@ -21,8 +21,13 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+    - name: Diagnóstico de Directorio (Debug)
+      run: |
+        echo "Directorio actual: $(pwd)"
+        ls -R
+
     - name: Ejecutar Pruebas (Unit, BDD, Performance)
-      run: mvn clean verify surefire-report:report
+      run: mvn clean verify surefire-report:report -B -e -X
 
     - name: Publicar Reporte Unitario/BDD (Artefacto)
       if: always()
